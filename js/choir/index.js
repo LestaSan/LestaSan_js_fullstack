@@ -55,5 +55,7 @@ function joinChoir(ani){
     if(ani &&  
         typeof ani.duckSinging == 'function'){
             choir.push(ani);
+        }else{
+            console.log('不合要求');
         }
 }

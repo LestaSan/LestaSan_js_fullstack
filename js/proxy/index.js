@@ -3,15 +3,17 @@
 // js 具有强大的表现能力
 // js 还是弱类型语言 Java是静态型语言
 //js 基础类型 字符串 数字，
-//对象{}，array，function
+//对象{} ,object，array数组，function
 //symbol
-//bool 布尔值  false  null 为空  udefinded
+//bool 布尔值    
+//null 为空    
+//udefinded  
 //六大基础类型 1个复杂类型
 var xiaoming = {
     name: '小明',
     age: 21,
-    hasGirlFriend: false,
-    job: null,
+    hasGirlFriend: false,  //bool值 逻辑变量定义符
+    job: null,  //定义一个变量是给了内存空间  null表示空间里什么都没有
     city: undefined,
     //方法 行为
     sendFlower: function(target){
@@ -37,7 +39,8 @@ var xiaomei = {
     hasBoyFriend: false,
     job: null,
     receiveFlower: function(flower, name){
-        console.log('收到' + name +  '送的' + flower.type)
+        var m = '收到' + name +  '送的' + flower.type;
+        console.log(m)  //查看一个变量的内容
     },
     // 监听好心情
     /*

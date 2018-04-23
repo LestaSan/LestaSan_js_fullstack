@@ -1,11 +1,11 @@
 // 小明表白的故事
 // 小明 talk in js
 // js 具有强大的表现能力
-// js 还是弱类型语言 Java是静态型语言
+// js 还是弱类型语言 Java是静态强类型语言
 //js 基础类型 字符串 数字，
-//对象{} ,object，array数组，function
+//对象{}，array数组，function
 //symbol
-//bool 布尔值    
+//bool布尔值   false/true    
 //null 为空    
 //udefinded  
 //六大基础类型 1个复杂类型
@@ -16,11 +16,17 @@ var xiaoming = {
     job: null,  //定义一个变量是给了内存空间  null表示空间里什么都没有
     city: undefined,
     //方法 行为
+    //访问属性通过 . 来完成
     sendFlower: function(target){
         // 1 买花
         var flower = new Flower('满天星');
-        if (typeof target.receiveFlower == 'function')
-            target.receiveFlower(flower, this.name);
+
+        //判断target是否可以收花
+         //  是否对象上有receiveFlower方法 typeof判断类型 此处应为function
+         //  如果类型 == function 那就receiveFlower
+        if (typeof target.receiveFlower == 'function') 
+        //把花送出去  ，送出去的概念就是对方收到了花。
+            target.receiveFlower(flower, this.name);   
         else
             console.log('拿到名企前是不可能谈恋爱的。');
     }
@@ -75,16 +81,19 @@ var xiaoxue = {
         // }else {
         // xiaomei.receiveFlower(flower, name)
         // }
-        // 叫小美过来。。
+
+        // 叫小美过来。。小雪本身是没有送花功能的
+        // 两个对象拥有同样的方法 ，即可换对象执行  
+        // 直接调用小美上的receiveFlower
         // xiaomei.receiveFlower(flower, name)
-        // 实现了同样的收花方法，receiveFlower这种叫 接口 interface
-        // 小雪，小美都实现了同样的方法，实现了相同的接口
+        // 实现了同样的收花方法，receiveFlower这种叫 接口 
+        // 小雪，小美都实现了同样的方法，即实现了相同的接口interface
         // 只要实现了相同的接口，就可以互换对象
     }
 }
 // xiaoming.sendFlower(xiaomei);
 
-//给小雪 小雪转送
+//给小雪 小雪代收再转给小美
 xiaoming.sendFlower(xiaoxue);  //（）里 形参
 // xiaoming.sendFlower(xueba);
 

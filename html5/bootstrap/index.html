@@ -58,7 +58,7 @@
     </div>
     <script>
         // 封装完的函数可以复用。
-        function renderStudentsHTML(students){
+        function renderStudentsHTML(students){          //renderHTML是用参数中的 htmlString 为内容返回给客户端
             const html = students.map(student => `
                 <tr>
                     <td>${student.name}</td>
@@ -73,24 +73,25 @@
                 .then(data => data.json())
                 .then(data => {
                     const students = data.data.students
-                    console.log(students)
+                    // console.log(students)
                     renderStudentsHTML(students)
                 })
         }
         document.forms['addForm'].addEventListener(
             'submit', function(event){
-                event.preventDefault();
+                event.preventDefault();   //阻止默认行为  阻止提交  
                 const strUsername = document.getElementById('usernameInput').value;
                 const strHometown = document.getElementById('hometownInput').value;
                 const strQQ = document.getElementById('qqInput').value;
-                console.log(strUsername, strHometown, strQQ);
-                const oTr = document.createElement('tr');
+                // console.log(strUsername, strHometown, strQQ);
+                //创建元素节点 如创建一个按钮：document.createElement("BUTTON");
+                const oTr = document.createElement('tr');     
                 const oTd1 = document.createElement('td');
                 const oTd2 = document.createElement('td');
                 const oTd3 = document.createElement('td');
-                oTr.appendChild(oTd1);
+                oTr.appendChild(oTd1);                        //（指定目录中）添加项目  依次挂上去
                 oTd1.appendChild(
-                    document.createTextNode(strUsername)
+                    document.createTextNode(strUsername)  //添加文本节点
                 );
                 oTr.appendChild(oTd2);
                 oTd2.appendChild(
@@ -100,7 +101,7 @@
                 oTd3.appendChild(
                     document.createTextNode(strQQ)
                 );
-                document.querySelector('#stuTable tbody').appendChild(oTr)
+                document.querySelector('#stuTable tbody').appendChild(oTr)  //tboy中添加oTr
             },false
         );
     </script>

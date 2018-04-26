@@ -7,6 +7,8 @@
 //js 里其实只有对象 而且是基于原型式的对象     object原型对象的始祖
 //有参照物  就是原型 prototype
 //所以js里不需要传统的继承，只要有个参照物就可以实现原型继承
+
+
 var Bicycle = function(brand){        //function Bcicyle(brand){}
     // 构造函数 constructor
     // new 时执行，

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>懒加载图片</title>
+</head>
+<body>
+    <!-- 网页在渲染的时候，
+    http的请求数量会推迟渲染
+    chrome 性能最好，同时并发的请求数十几个
+
+    先加载网页再打开图片——————>
+    将图片下载 放到dom ready事件之后 
+    将有效提升网页打开速度
+    占位图片，（较小 很容易下载 所有的src都放占位图片 只需下载一次）
+    优化前 n张照片 url 不一样 http请求数是n
+    优化后 图片上的http 数量只有1
+    如果url一样，不会重复发送
+
+    到可视区域再加载 -->
+
+    <img
+        class="pic1"
+        src="http://static.youku.com/yk/vmanage/img/manage/video/mask.d53611efc6.png"
+        origin_src="http://img5.imgtn.bdimg.com/it/u=2626499512,3487685249&fm=27&gp=0.jpg" alt="" />
+    <img 
+        src="http://static.youku.com/yk/vmanage/img/manage/video/mask.d53611efc6.png"
+        origin_src="http://img5.imgtn.bdimg.com/it/u=2626499512,3487685249&fm=27&gp=0.jpg" alt="" />
+    <img 
+        src="http://static.youku.com/yk/vmanage/img/manage/video/mask.d53611efc6.png"
+        origin_src="https://i02picsos.sogoucdn.com/4b154872465cba4f" alt="" />
+    <img 
+        src="http://static.youku.com/yk/vmanage/img/manage/video/mask.d53611efc6.png"
+        origin_src="https://i02picsos.sogoucdn.com/4b154872465cba4f" alt="" />
+        <script src="./lazyload.js"></script>
+   <script>
+    // 已经是用户看到了网页了，dom ready
+    // 优化图片下载，将其推后，
+    window.onload = function() {
+        const img = document.querySelector('.pic1');
+        LazyLoadImage.setSrc(img);
+        // 懒加载图片
+        // 在页面打开后，重新下载图片
+        // const img = document.querySelector('.pic1');
+        // // origin_src 自定义属性
+        // const url = img.getAttribute('origin_src');
+        // console.log(url);
+        // // img.src = url;
+        // // 图片不要直接url设置过去，太那啥。。。
+        // const oImg = document.createElement('img');
+        // oImg.style.display = 'none';
+        // document.body.appendChild(oImg);
+        // oImg.src = url;
+        // oImg.onload = function() {
+        //     // 幕后工作者 已经下载了图片
+        //     // url 一旦下载，就会在浏览器缓存(静态)文件
+        //     img.src = url;
+        // }
+        // 图片下载是异步的 图片有大小
+        
+        // img.setAttribute('src',url);
+
+
+    }
+    </script>    
+</body>
+</html>

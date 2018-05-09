@@ -48,7 +48,7 @@ body {
 }
 input[type="text"],
 textarea {
-  appearance: none;
+  -webkit-appearance: none;
 }
 html {
   width: 100%;

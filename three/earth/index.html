@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>three.js canvas - geometry -earth</title>
-    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body,html {
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body>
+<body ontouchstart>
     <div id="container"></div>
     <canvas id="webglcanvas"></canvas>
     <!-- js放在尾部 -->
@@ -35,7 +44,7 @@
         canvas = document.getElementById('webglcanvas');
         camera = new THREE.PerspectiveCamera(60, 
             window.innerWidth/window.innerHeight, 1, 2000);
-        camera.position.z = 500;
+        camera.position.z = 700;
         // 场景实例化
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0xffffff);
@@ -78,8 +87,14 @@
         init();
         animate();
         window.addEventListener('mousemove', onWindowMouseMove, false)
+        window.addEventListener('touchmove', onTouchMove, false)
         window.addEventListener('resize', onWindowResize, false);
         
+    }
+    function onTouchMove() {
+        // preventDefault();
+        mouseX = event.touches[0].clientX - windowHalfX;
+        mouseY = event.touches[0].clientY - windowHalfY;
     }
     function onWindowMouseMove() {
         // 基于左上角
@@ -89,9 +104,9 @@
         console.log(mouseX, mouseY);
     }
     function onWindowResize() {
-        windowHalfX = window.innerWidth / 2;
-        windowHalfY = window.innerHeight /2;
-        console.log(windowHalfX, windowHalfY);
+        // windowHalfX = window.innerWidth / 2;
+        // windowHalfY = window.innerHeight /2;
+        // console.log(windowHalfX, windowHalfY);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);

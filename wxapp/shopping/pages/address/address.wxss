@@ -1,0 +1,22 @@
+.container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.list {
+    display: block;
+    padding: 10rpx;
+    border-bottom: 1rpx solid #e9e9e9;
+    padding: 30rpx;
+    font-size: 40rpx;
+}
+.save {
+    position: absolute;
+    width: 600rpx;
+    right: 10%;
+    top: 80rpx;
+    background-color: #cc4125;
+    border-radius: 20rpx;
+    border-color: #cc4125;
+    color: white;
+}

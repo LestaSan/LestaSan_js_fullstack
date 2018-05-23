@@ -1,9 +1,9 @@
 <view class="container">
     <input value="{{name}} "type="text" bindinput="getName"
     class="list name" placeholder="姓名"/>
-    <input value="{{telphone}}" type="text"  bindinput="getTel"
+    <input value="{{tel}}" type="text"  bindinput="getTel"
     class="list phonenumber" placeholder="电话"/>
-    <input value="{{address}}" type="text" bindinput="getAddr"
+    <input value="{{addr}}" type="text" bindinput="getAddr"
     class="list address" placeholder="地址"/>
 </view>
 <view class="container">

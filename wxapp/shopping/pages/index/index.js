@@ -1,119 +1,59 @@
 // pages/address/address.js
+import goods from '../../api/goods.js' 
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    test: {
-      name:'',
-      tel: '',
-      address: ''
-    },
-    
-    temp: {}
-     
+    num: 1,
+    show: false,
+    totalNum: 0,
+    scaleCart: false,
+    goods: null
   },
-  save(){
+  onLoad (options) {
+    const id = options.id || 2;
+    let curGoods;
+    for (let i = 0; 1 < goods.length; i++) {
+      if (goods[i].id == id) {
+        curGoods = goods[i];
+        break;
+      }
+    }
+    setTimeout(() => {
+      this.setData({
+        goods: curGoods
+      })
+    }, 1000)
     
-     wx.setStorage({
-       key:'saveInfo',
-       data: this.data.temp
-     })
-    
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
-  getName(e) {
-    // console.log(e)
-    var name = e.detail.value.trim();
-    // var test = this.data.test;
-    test.name=name;
-    // var temp = this.data.temp;
-    Object.assign(temp,test);
-    
+  }, 
+  addCount() {
+    var num = ++this.data.num;
+    // num++;
     this.setData({
-      temp
+      num
     })
-    console.log(this.data.temp)
-    
-    
-    // console.log(this.data.name)
   },
-  getTel(e) {
-    var tel = e.detail.value.trim();
-    var test = this.data.test;
-    test.tel=tel;
-    var temp = this.data.temp;
-    Object.assign(temp,test);
-    
+  addToCart() {
+    const num = this.data.num;
+    const total = this.data.totalNum;
     this.setData({
-      temp
-    })
-    console.log(this.data.temp)
-  },
-  getAddr(e) {
-    var address = e.detail.value.trim();
-    var test = this.data.test;
-    test.address=address;
-    var temp = this.data.temp;
-    Object.assign(temp,test);
-    
-    this.setData({
-      temp
-    })
-    console.log(this.data.temp)
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+      show: true
+    });
+    setTimeout(() => {
+      this.setData({
+        show: false,
+        scaleCart: true,
+      });
+      setTimeout(() => {
+        this.setData({
+          scaleCart: false,
+          hasCarts: true,
+          totalNum: num + total
+        })
+      }, 200)
+    }, 300)
   }
 })

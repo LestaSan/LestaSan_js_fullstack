@@ -7,5 +7,5 @@
   <button class="switch">下一步</button>
 </view>
 <view class="container">
-  <p class="text">点击“下一步”，即同意<a href="#">《58到家用户协议》</a></p>
+  <p class="text">点击“下一步”，即同意<navigator>《58到家用户协议》</navigator></p>
 </view>

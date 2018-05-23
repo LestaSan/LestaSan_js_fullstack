@@ -1,0 +1,35 @@
+@import '../../iconfont/iconfont';
+.contianer-item {
+  position: relative;
+  width: 50%;
+  height: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.phonenumber {
+  position: absolute;
+  border: 1rpx solid gray;
+  width: 650rpx;
+  height: 100rpx;
+  right: 50rpx;
+  border-radius: 30px;
+
+}
+.switch {
+  top: 350rpx;
+  position: absolute;
+  /* border: 1rpx solid gray; */
+  width: 650rpx;
+  height: 100rpx;
+  border-radius: 30px;
+  vertical-align: middle;
+  background-color: #cc4125;
+  border: 1px solid #cc4125;
+  color: white;
+}
+.text {
+  position: absolute;
+  font-size: 27rpx;
+  top: 480rpx;
+}

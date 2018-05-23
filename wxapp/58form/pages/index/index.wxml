@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="container-item">
+      <input type="text" value="{{PhoneNumber}}" class="phonenumber" placeholder="        请输入手机号" />
+      <i class="iconfont icon-LC_icon_phone_line">{{iafihf}}</i>
+      <i class="iconfont icon-cancle">{{iadio}}</i>
+  </view>
+  <button class="switch">下一步</button>
+</view>
+<view class="container">
+  <p class="text">点击“下一步”，即同意<a href="#">《58到家用户协议》</a></p>
+</view>

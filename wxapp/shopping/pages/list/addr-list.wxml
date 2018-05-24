@@ -1,0 +1,5 @@
+<view class="container">
+    <text class="line xingming">{{name}}</text>
+    <text class="line dianhua">{{tele}}</text>
+    <text class="line dizhi">{{address}}</text>
+</view>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>锁屏</title>
+    <link rel="stylesheet" href="./index.css">
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hd">
+            <h4 class="hd_header">输入密码</h4>
+        </div>
+        <div class="bd_num">
+            <button class="bd_num_box num">1</button>
+            <button class="bd_num_box num">2</button>
+            <button class="bd_num_box num">3</button>
+            <button class="bd_num_box num">4</button>
+            <button class="bd_num_box num">5</button>
+            <button class="bd_num_box num">6</button>
+            <button class="bd_num_box num">7</button>
+            <button class="bd_num_box num">8</button>
+            <button class="bd_num_box num">9</button>
+            <button class="bd_num_box num last">0</button>
+        </div>
+        <div class="ft">
+            <a href="" class="ft_box call">紧急呼叫</a>
+            <a href="" class="ft_box cancle">取消</a>
+        </div>
+    </div>
+    <script>
+        // 适配问题 不同的手机1rem 单位是 宽度10分之1
+        // 1rem = html fontsize
+    (function(w){
+        // window 是js 全局 dom document 只是其中一部分
+        // 导航location.href　  navigator lbs 经纬度
+        // 陀螺仪 储存localstorage
+        let s = w.document;
+        // 找到html元素
+        let r = s.documentElement;
+        // 宽度的十分之一
+        let colWidth = r.clientWidth/10;
+
+        console.log(colWidth);
+        r.style.fontSize = colWidth + 'px';
+        
+    })(window)
+    </script>
+</body>
+</html>

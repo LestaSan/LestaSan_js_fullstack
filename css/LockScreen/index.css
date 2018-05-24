@@ -1,0 +1,66 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.container {
+    height: 100%;
+    width: 100%;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#5c5f5e), to(#0a305a));
+    overflow: hidden;
+}
+.hd {
+    width: 100%;
+    height: 6.056rem;
+    font-size: 0.417rem;
+}
+.hd_header {
+    line-height: 6.056rem;
+    text-align: center;
+    color: white;
+}
+.bd_num {
+    width: 100%;
+    height: 8.556rem;
+    position: relative;
+}
+.bd_num_box {
+    width: 1.611rem;
+    height: 1.611rem;
+    border-radius: 50%;
+    background-color: transparent;
+    border: .01389rem solid white;
+    font-size: 0.528rem;
+    margin-bottom: 0.833rem;
+}
+.num {
+    font-size: 0.528rem;
+    margin-right: 1.111rem;
+    color: white;
+}
+.num:nth-child(3n) {
+    margin-right: 0;
+}
+.num:nth-child(3n+1) {
+    margin-left: 1.111rem;
+}
+.num:nth-child(10) {
+    margin-left: 4.113rem;
+    
+}
+
+.ft {
+    position: fixed;
+    bottom: 0.278rem;
+}
+.ft_box {
+    width: 4.678rem;
+    display: inline-flex;
+    text-decoration: none;
+    font-size: 0.417rem;
+    color: white;
+}
+.cancle {
+    width: 4.678rem;
+    text-align: center;
+}

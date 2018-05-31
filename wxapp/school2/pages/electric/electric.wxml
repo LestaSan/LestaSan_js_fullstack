@@ -1,0 +1,18 @@
+<view class="container">
+    <view class="main">
+        <view class="main__hd">默认寝室</view>
+        <view class="main__bd">研1529</view>
+        <view class="main__ft">></view>
+    </view>
+    <view class="radio">
+        <radio-group bindchange="listenerRadioGroup">
+            <label style="display: flex" wx:for="{{array}}">
+                <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+            </label>
+        </radio-group>
+    </view>
+    <view class="bt">
+        <button>确定</button>
+    </view>
+</view>
+

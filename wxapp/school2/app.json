@@ -1,13 +1,11 @@
 {
   "pages": [
-    "pages/record/record",
-    "pages/electric/electric",
-    "pages/home/home",
-    "pages/card/card",
+    "pages/order/order",
+    "pages/user/user",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/template/template"
-    
+    "pages/card/card",
+    "pages/electric/electric"    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -30,7 +28,7 @@
         "selectedIconPath": "images/icon_index_hl.png"
       },
       {
-        "pagePath": "pages/home/home",
+        "pagePath": "pages/user/user",
         "text": "我的",
         "iconPath": "images/icon_home.png",
         "selectedIconPath": "images/icon_home_hl.png"

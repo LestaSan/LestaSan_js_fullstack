@@ -23,7 +23,15 @@
     config = {
       navigationBarTitleText: '授权登录'
     }
-  
+    async onLoad () {
+      let res = await wepy.getSetting()
+      console.log(res);
+      if ((res.authSetting)['scope.userInfo']) {
+        wepy.switchTab({
+          url: '/pages/icon_home'
+        })
+      }
+    }
     // async 对函数内部有异步操作变同步的声明
     async onGotUserInfo (e) {
       console.log(e);
@@ -33,7 +41,7 @@
         // wepy.login api
         // 通过用户的头像，nickname 拿到用户的code
         let res = await wepy.login();
-        console.log(res);
+        // console.log(res);
         if (res.code) {
             // await一下 多sync 自带同步
             // 保存storage 不用再用户授权， 快一点存好
@@ -48,12 +56,24 @@
                 }
             });
             if (rlt.result) {
-
+              let data = rlt.data;
+              if (data.openid) {
+                wepy.setStorageSync(USER_SPECIAL_INFO, data.openid);
+                wepy.switchTab({
+                    url: '/pages/icon_home'
+                  })
+              }
             } else {
-                wepy.showModal({
+                let res = await wepy.showModal({
                     title:  'appid有误',
                     content: '授权失败'
-                })
+                }); 
+                // console.log(res);
+                if (res.confirm) {
+                  wepy.switchTab({
+                    url: '/pages/icon_home'
+                  })
+                }
             }
         }
       }

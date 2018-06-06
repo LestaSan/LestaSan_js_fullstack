@@ -1,0 +1,17 @@
+<template>
+    <view>
+
+    </view>
+</template>
+<script>
+    import wepy from 'wepy';
+    export default class Discover extends wepy.component {
+        // 外界传来的数据 传参
+        props = {
+            
+        }
+    }
+</script>
+<style lang="less">
+
+</style>

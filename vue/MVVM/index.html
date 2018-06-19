@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- VUE 是 MVVM -->
+    <!-- data-binding -->
+    <!-- template compile-->
+    <!-- 支持对{{}}的解析，template compile -->
+    <!-- template -> html -->
+    <!-- {{key}}  在data {name: 'Lesta'}数据项中  回填-->
+    <!-- 1 找坑 2 填值 -->
+    <div id="app">
+        <h3>姓名</h3>
+        <p>wodemingzishi{{name}}</p>
+        <h3>年龄</h3>
+        <p>{{age}}</p>
+        <div class="msg">
+            <p>
+                {{msg}}
+            </p>
+        </div>
+    </div>
+    <script>
+    class Vue {
+        constructor (opt) {
+            this.opt = opt;
+            // console.log(this.opt);
+            this.root = document.querySelector(opt.el);
+            this.compile(this.root);
+        }
+        compile (node) {
+            // {{.*}}
+            // 遍历结点，文本结点
+            // console.log(node);
+            // console.log(node.childNodes); 
+            [].forEach.call(node.childNodes, child => {
+                // 只有{{}}才需要去做， 正则
+                if(!child.firstElementChild && /\{\{(.*)\}\}/.test(child.innerHTML)) {
+                    // 子节点下面还没有孙节点，第一个子节点
+                    console.log(child.firstElementChild);
+                    let key = RegExp.$1.trim();
+                    // console.log(RegExp.$1)
+                    child.innerHTML = child.innerHTML.replace(/\{\{(.*)\}\}/, this.opt.data[key]);
+                    // console.log(this.opt)
+                } else if (child.firstElementChild) {
+                    this.compile(child);
+                }
+                // console.log(child.innerHTML);
+            })
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // 快一点，
+        let options = {
+            el: '#app',
+            data: {
+                name: '检索中...',
+                age: 30,
+                msg: 'vue 高手，月薪5万'
+            }
+        }
+        new Vue(options)
+    });
+    
+    </script>
+</body>
+</html>

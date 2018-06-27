@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-text&v-html</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+    <h1>v-text & v-html实例</h1>
+    <hr>
+    <div id="app">
+        <span>{{message}}</span>=<span v-text="message"></span>
+        <span v-html="dodo"></span>xss攻击 尽量少用
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'HelloWorld',
+                dodo: '<h2>hello world</h2>'
+            }
+        })
+    </script>
+</body>
+</html>

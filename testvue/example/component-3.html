@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Component-3</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+    <h1>Component-3</h1>
+    <hr>
+    <div id="app">
+        <Lesta ></Lesta>
+    </div>
+    <script type="text/javascript">
+        var city = {
+            template: `<div style="color:green;">SiChuan of China</div>`
+        }
+        var LestaSan = {
+            template: `
+                <div>
+                    <p style="color:red;">Lesta from China</p>
+                    <city></city>
+                </div>
+            `,
+            components: {
+                "city": city
+            }
+        }
+        var app = new Vue({
+            el: '#app',
+            components: {
+                "Lesta": LestaSan
+            }
+
+        })
+    </script>
+</body>
+</html>

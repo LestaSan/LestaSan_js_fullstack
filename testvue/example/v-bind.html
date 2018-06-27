@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind实例</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+    <h1>v-bind实例</h1>
+    <hr>
+    <div id="app">
+        <p v-bind:type="Type"></p>
+        <div :class="className">1. 绑定Class</div>
+        <div :class="{classA:isOk}">2. 绑定Class的判断</div>
+        <div :class="[classA,classB]">3. 绑定Class的数组</div>
+        <div :class="isOk? classA: classB">4. 绑定Class的三元运算符</div>
+        <hr>
+        <div>
+            <input type="checkbox" id="isOk" v-model="isOk"/>
+            <label for="isOk">isOk={{isOk}}</label>
+        </div>
+        <hr>
+        <div :style="{color:red,fontSize:font}">5. 绑定style</div>
+        <div :style="styleObject">6. 对象绑定style</div>
+    </div>
+    <style>
+        .classA {
+            color: red;
+        }
+        .classB {
+            font-size: 150%;
+        }px
+    </style>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'HelloWorld',
+                Type: 'text',
+                className: 'classA',
+                isOk: false,
+                classA: 'classA',
+                classB: 'classB',
+                red: 'red',
+                font: '20px',
+                styleObject: {
+                    color: 'green',
+                    fontSize: '24px',
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue.extend 扩展实例构造器</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+    <h1>vue.extend 扩展实例构造器</h1>
+    <hr>
+    <author></author>
+    <div id="author"></div>
+    <script type="text/javascript">
+        var authorURL = Vue.extend({
+            template: "<p><a :href='authorURL'>{{authorName}}</a></p>",
+            data () {
+                return {
+                    authorName: 'Lesta',
+                    authorURL: 'http://Lesta.com'
+                }
+            }
+        });
+        new authorURL().$mount("author");
+        new authorURL().$mount("#author");
+    </script>
+</body>
+</html>

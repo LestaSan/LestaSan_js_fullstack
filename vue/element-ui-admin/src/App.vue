@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <login />
+    <p v-html="content"></p>
   </div>
 </template>
 
@@ -9,6 +10,11 @@
 import Login from '@/views/Login'
 export default {
   name: 'App',
+  data () {
+    return {
+      content: '<span>美团挂了，还有UC</span>'
+    }
+  },
   components: {
     Login
   }

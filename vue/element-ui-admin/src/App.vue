@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <article-table/>
     <!-- <login /> -->
     <!-- <p v-html="content"></p> -->
     <!-- <ele-radio-group v-model="sex">
@@ -7,7 +8,7 @@
       <ele-radio label="男"></ele-radio>
     </ele-radio-group> -->
 
-    <comment/>
+    <!-- <comment/> -->
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import EleRadioGroup from '@/components/EleRadioGroup'
 import Login from '@/views/Login'
 import EleRadio from '@/components/EleRadio'
 import Comment from '@/components/Comment'
+import ArticleTable from '@/components/ArticleTable'
 export default {
   name: 'App',
   data () {
@@ -29,7 +31,8 @@ export default {
     // EleRadioGroup,
     // EleRadio,
     // Login
-    Comment
+    // Comment
+    ArticleTable
   }
 }
 </script>

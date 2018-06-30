@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>example03</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+    <h1>example03</h1>
+    <hr>
+    <div id="app">
+        {{num}}
+        <p><button @click="add">add</button></p>
+    </div>
+    <p><button onclick="reduce()">reduce</button></p>
+    <p><button onclick="reduceOnce()">reduceOnce</button></p>
+    <p><button onclick="off()">off</button></p>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num: 1
+            },
+            methods: {
+                add () {
+                    this.num++
+                }
+            }
+        });
+        
+        // $emit和$on可以实现组件之间的传值  
+        // $emit和$on的事件必须在一个公共的实例上，才能够触发。
+        app.$on('reduce', function() {
+            console.log('执行了reduce方法')
+            this.num--
+        })
+        app.$once('reduceOnce', function() {
+            console.log('只执行一次方法')
+            this.num--
+        })
+        function reduce() {
+            app.$emit('reduce')
+        }
+        function reduceOnce() {
+            app.$emit('reduceOnce')
+        }
+        function off(){
+            app.$off('reduce');
+        }
+    </script>
+</body>
+</html>

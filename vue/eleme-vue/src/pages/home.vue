@@ -1,6 +1,6 @@
 <template>
     <div>
-        <head-top singin-up="home" >
+        <head-top signinUP="true" >
             <span slot="logo" class="head_logo">ele.me</span>
         </head-top>
         <nav class="city_nav">
@@ -24,7 +24,7 @@
     </div>
 </template>
 <script>
-import headTop from '@/components/headTop.vue'
+import headTop from '@/components/headTop'
 import { cityGuess, hotcity } from '@/api/getData'
 export default {
     data () {
@@ -41,19 +41,22 @@ export default {
     // created () {
     //     cityGuess();
     // }
-    mounted () {
-        cityGuess()
-            .then(res => res.json())
-            .then(data => {
-                this.guessCityid = data.id,
-                this.guessCity = data.name
-        })
-        hotcity()
-            .then(res => res.json())
-            .then(data => {
-                this.hotcity = data
-            })
-
+    async mounted () {
+        // cityGuess()
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         this.guessCityid = data.id,
+        //         this.guessCity = data.name
+        //      })
+        // hotcity()
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         this.hotcity = data
+        //     })SS
+        const cityData = await cityGuess()
+        this.guessCityid = cityData.id
+        this.guessCity = cityData.name
+        this.hotcity = await hotcity()
     }
 }
 </script>

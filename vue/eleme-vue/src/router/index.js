@@ -4,6 +4,8 @@ import Router from 'vue-router'
 // 当去到home页面时引入
 const home = () => import('@/pages/home')
 const login = () => import('@/pages/login')
+const city = () => import('@/pages/city')
+const msite = () => import('@/pages/msite')
 // lazyload
 
 Vue.use(Router)
@@ -24,6 +26,14 @@ export default new Router({
       meta: {
         keepalive: true
       }
+    },
+    {
+      path: '/city/:cityid',
+      component: city
+    },
+    {
+      path: '/msite',
+      component: msite
     }
   ]
 })

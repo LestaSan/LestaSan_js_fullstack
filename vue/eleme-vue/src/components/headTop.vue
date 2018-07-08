@@ -1,10 +1,28 @@
 <template>
     <header id="head_top">
         <slot name="logo"/>
-        <router-link class="head_login" :to="userInfo? './profile':'/login'">
+        <section v-if="goBack"
+        class="head_goback" 
+        @click="$router.go(-1)">
+            <svg width="100%" heihgt="100%" 
+            xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <polyline points="12, 18 4, 9 12, 0" 
+                style="fill:none;stroke:rgb(255,255,255);stroke-width:2"/>
+            </svg>
+        </section>
+        <router-link class="head_login" 
+        :to="userInfo? './profile':'/login'" 
+        v-if="signinUP">
             <span class="login_span" v-if="!userInfo">登录|注册</span>
         </router-link>
+        <section class="title_head ellipsis" v-if="headTitle">
+            <span class="title_text">{{headTitle}}</span>
+        </section>
+        <section v-if="goBack">
+            <slot name="changecity"></slot>
+        </section>
     </header>
+
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -16,7 +34,8 @@ export default {
         ...mapState([
             'userInfo'
         ]),
-    }
+    },
+    props: ['signinUP', 'goBack', 'headTitle']
 }
 </script>
 <style lang="stylus" scoped>
@@ -28,7 +47,6 @@ export default {
     wh(2.3rem, 0.7rem)
     ct()
    
-
 #head_top
     background-color $blue
     position fixed
@@ -43,4 +61,20 @@ export default {
     ct()
     .login_span
         colr #ffffff
+
+.head_goback 
+    left 0.4em
+    wh(.6rem, 1rem)
+    line-height 15.2rem
+    margin-left 0.4rem
+
+.title_head 
+    center()
+    width 50%
+    color #ffffff
+    text-align center
+    .title_text
+        sc(0.8rem, #fff)
+        text-align center
+        font-weight bold
 </style>

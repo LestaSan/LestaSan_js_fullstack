@@ -1,6 +1,7 @@
 <template>
     <header id="head_top">
         <slot name="logo"/>
+        <slot name="search"></slot>
         <section v-if="goBack"
         class="head_goback" 
         @click="$router.go(-1)">
@@ -18,8 +19,9 @@
         <section class="title_head ellipsis" v-if="headTitle">
             <span class="title_text">{{headTitle}}</span>
         </section>
-        <section v-if="goBack">
+        <section>
             <slot name="changecity"></slot>
+            <slot name="msite-title"></slot>
         </section>
     </header>
 

@@ -8,6 +8,17 @@ const http = axios.create({
     timeout: 10000
 })
 
+export const msiteFoodTypes = (geohash) => {
+    return new Promise((resolve, reject) => {
+        http.get('/v2/index_entry', {
+            geohash,
+            group_type: '1',
+            'flags[]': 'F'
+        })
+        .then(res => resolve(res.data))
+    })
+}
+
 // lbs核心是lat lng 经纬度
 export const searchplace = (cityid, keyword) => new Promise((resolve, reject) => {
     const url = `v1/pois?type=search&city_id=${cityid}&keyword=${keyword}`

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // 对react ui 阿里的antd 部份引用
 import { Table, Pagination, Input, Row, Button, Modal, Form } from 'antd';
+import axios from 'axios';
 import 'antd/dist/antd.css';
 import './App.css'
 const { Search } = Input;
@@ -78,7 +79,8 @@ class App extends Component {
     return (
       <div className="App">
         <Row>
-          <Search style={{width: 300}}/>
+          <Search style={{width: 300}}
+          onChange={ this.serachUser.bind(this) }/>
           <Button type="primary" style={{marginLeft: 20}} 
           onClick={() => this.modal('add')}>添加用户</Button>
         </Row>
@@ -134,7 +136,12 @@ class App extends Component {
       </div>
     );
   }
-
+  serachUser (event) {
+    axios.get('http://localhost:3006/users')
+      .then(data => {
+        console.log(data)
+      })
+  }
   modal (type, row) {
     // console.log(type)
     this.setState({

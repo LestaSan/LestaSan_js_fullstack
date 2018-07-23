@@ -10,6 +10,19 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    {
+                        // loader: 'file-loader',
+                        loader: 'url-loader',
+                        options: {
+                            name: 'static/images/[name].[hash:8].[ext]'
+                        }
+                    }
+                ]
+                
+            },
+            {
                 test: /\.js/,
                 include: /src/,
                 exclude: /node_modules/,
@@ -20,8 +33,8 @@ module.exports = {
             {
                 test: /\.styl/,
                 use: [
-                    // MiniCssExtractPlugin.loader,
                     'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader',
                     'stylus-loader'
@@ -31,8 +44,8 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'static/cs/[name].css',
-            chunkFilename: 'static/css[id].css'
+            filename: '[name].[chunkhash:B].css',
+            chunkFilename: '[id].css'
         }),
         new HtmlWebpackPlugin({
             file: 'index.html',

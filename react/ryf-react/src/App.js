@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // 对react ui 阿里的antd 部份引用
-import { Table, Pagination, Input, Row, Button, Modal, Form } from 'antd';
+import { Table, Pagination, Input, Row, Button, Modal, Form, message } from 'antd';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import './App.css'
@@ -169,6 +169,20 @@ class App extends Component {
         this.setState({
           visible: false
         })
+        let data = {
+          username: values.username,
+          age: values.age,
+          address: values.address
+        }
+        console.log(data);
+        axios.post('http://127.0.0.1:3006/user', data)
+          .then(msg => {
+            console.log(msg);
+            this.setState({
+              visible: false,
+            });
+            message.success('添加成功');
+          })
       }
     })
   }

@@ -12,13 +12,14 @@ let jsonp = (url, data, option) => {
 }
 
 function buildUrl(url, data) {
-    console.log(url, data)
+    // console.log(data)
     let params = [];
     for (var k in data) {
         params.push(`${k}=${data[k]}`)
     }
+    // console.log(params)
     let param = params.join('&')
-    console.log(param)
+    // console.log(param)
     if (url.indexOf('?') === -1) {
         url += '?' + param;
     } else {

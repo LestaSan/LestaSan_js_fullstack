@@ -1,6 +1,6 @@
 const URL = {
     carousel: 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg',
-    newalbum: 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
+    newalbum: 'https://u.y.qq.com/cgi-bin/musicu.fcg'
 }
 
 const PARAM = {

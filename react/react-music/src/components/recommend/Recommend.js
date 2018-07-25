@@ -5,14 +5,15 @@ import "swiper/dist/css/swiper.css";
 import './recommend.styl';
 import * as AlbumModel from '@/model/album'
 import { CODE_SUCCESS } from '../../api/config';
-
+import Scroll from '@/common/scroll/Scroll';
 
 class Recommend extends Component {
     constructor (props) {
         super(props);
         this.state = {
             sliderList: [],
-            newAlbums: []
+            newAlbums: [],
+            refreshScroll: false
         }
     }
 
@@ -49,6 +50,10 @@ class Recommend extends Component {
                     // console.log(albumList)
                     this.setState({
                         newAlbums: albumList
+                    }, () => {
+                        this.setState({
+                            refreshScroll: true
+                        })
                     })
                 }
             }
@@ -86,28 +91,33 @@ class Recommend extends Component {
         });
         return (
             <div className="music-recommend">
-                <div className="slider-container">
-                    <div className="swiper-wrapper">
-                        {
-                            this.state.sliderList.map(slider => {
-                                return (
-                                    <div className="swiper-slide" key={slider.id}>
-                                        <a onClick={this.toLink(slider.linkUrl)} href="#" className="slider-nav">
-                                            <img src={slider.picUrl} width="100%" height="100%" alt="推荐" />
-                                        </a>
-                                    </div>
-                                )
-                            })
-                        }
+                <Scroll refresh={this.state.refreshScroll}>
+                    <div>
+                        <div className="slider-container">
+                            <div className="swiper-wrapper">
+                                {
+                                    this.state.sliderList.map(slider => {
+                                        return (
+                                            <div className="swiper-slide" key={slider.id}>
+                                                <a onClick={this.toLink(slider.linkUrl)} href="#" className="slider-nav">
+                                                    <img src={slider.picUrl} width="100%" height="100%" alt="推荐" />
+                                                </a>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div className="swiper-pagination"></div>
+                        </div>
+                        <div className="album-container">
+                            <h1 className="title">最新专辑</h1>
+                            <div className="album-list">
+                                {albums}
+                            </div>
+                        </div>
                     </div>
-                    <div className="swiper-pagination"></div>
-                </div>
-                <div className="album-container">
-                    <h1 className="title">最新专辑</h1>
-                    <div className="album-list">
-                        {albums}
-                    </div>
-                </div>
+                </Scroll>
+
             </div>
         );
     }

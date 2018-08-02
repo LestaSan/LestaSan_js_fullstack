@@ -43,10 +43,10 @@ export default class extends React.PureComponent {
                                 tab => (
                                     <div className={styles.tab}>
                                         <div className={styles.icon}>
-                                            {this.isActive(tab.herf)?tab.icon2:tab.icon}
+                                            {this.isActive(tab.href)?tab.icon2:tab.icon}
                                         </div>
                                         <div className={styles.title}
-                                        style={{color: this.isActive(tab.herf)?'#0089dc':''}}>
+                                        style={{color: this.isActive(tab.href)?'#0089dc':''}}>
                                             {tab.title}
                                         </div>
                                     </div>

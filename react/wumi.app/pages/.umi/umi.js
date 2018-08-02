@@ -1,3 +1,4 @@
+import 'C:/Users/Administrator/AppData/Roaming/npm/node_modules/umi/node_modules/umi-build-dev/lib/plugins/hd/template/index.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'umi/_createHistory';
@@ -30,9 +31,3 @@ if (module.hot) {
     render();
   });
 }
-
-// Enable service worker
-if (process.env.NODE_ENV === 'production') {
-  require('./registerServiceWorker');
-}
-      

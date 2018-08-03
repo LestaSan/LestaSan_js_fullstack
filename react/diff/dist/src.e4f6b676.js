@@ -125,23 +125,7 @@ function createElement(tag, attrs) {
 }
 
 exports.default = createElement;
-},{}],"src\\react\\index.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createElement = require('./create-element.js');
-
-var _createElement2 = _interopRequireDefault(_createElement);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    createElement: _createElement2.default
-};
-},{"./create-element.js":"src\\react\\create-element.js"}],"src\\react-dom\\dom.js":[function(require,module,exports) {
+},{}],"src\\react-dom\\dom.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -181,21 +165,50 @@ function setAttribute(dom, name, value) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.renderComponent = renderComponent;
 exports.render = render;
 
 var _dom = require('./dom.js');
 
+var _component = require('../react/component.js');
+
+var _component2 = _interopRequireDefault(_component);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * 将虚拟DOM 变为真实DOM
+ * @params vnode 虚拟DOM
+ * @return 返回DOM
+ * 
+ */
+
 function _render(vnode) {
+    // console.log(vnode);
     // 1. 递归 将结点转为DOM，子结点递归，要有出口  即文本节点时，结束
     // 2. 结点类型： 三种：
     // 文本结点 createTextNode() 在递归里结束  return createTextNode()
     // 标签结点 createElement 有attrs设置 children设置(递归 _render)
-    // 3. Component类型  render(return jsx)  组件返回jsx  再在外层父结点render()一次
+    // Component类型  render(return jsx)  组件返回jsx  再在外层父结点render()一次
     if (vnode === undefined || vnode === null || typeof vnode === 'boolean') vnode = '';
+
+    if (typeof vnode === 'number') {
+        // console.log(vnode)
+        vnode = String(vnode);
+    }
 
     if (typeof vnode === 'string') {
         var textNode = document.createTextNode(vnode);
         return textNode;
+    }
+
+    // <Counter/> 不是正常标签 vnode.tag = function Counter() {} class与function一样
+    if (typeof vnode.tag === 'function') {
+        // console.log(vnode);
+        // return document.createTextNode('component')
+        var component = createComponent(vnode.tag, vnode.attrs);
+        setComponentProps(component, vnode.attrs);
+        return component.base;
     }
 
     var dom = document.createElement(vnode.tag);
@@ -214,17 +227,102 @@ function _render(vnode) {
 
     return dom;
 }
-/**
- * 将虚拟DOM 变为真实DOM
- * @params vnode 虚拟DOM
- * @return 返回DOM
- * 
- */
+
+function createComponent(component, props) {
+    var inst = void 0;
+    if (component.prototype && component.prototype.render) {
+        inst = new component(props);
+    } else {
+        inst = new _component2.default(props);
+        inst.constructor = component;
+        inst.render = function () {
+            return this.constructor(props);
+        };
+    }
+    return inst;
+}
+
+function setComponentProps(component, props) {
+    component.props = props;
+    renderComponent(component);
+}
+
+// 将component里的jsx转为真实DOM，同时还会在setState时调用(外界)
+function renderComponent(component) {
+    var base = void 0; //jsx => DOM
+    var renderer = component.render(); //jsx
+    base = _render(renderer); // -> 递归 真实DOM
+    // 非第一次渲染组件 
+    if (component.base && component.base.parentNode) {
+        component.base.parentNode.replaceChild(base, component.base);
+    }
+    component.base = base;
+    base._component = component;
+}
+
 function render(vnode, container) {
-    console.log(vnode, container);
+    // console.log(vnode, container);
     return container.appendChild(_render(vnode));
 }
-},{"./dom.js":"src\\react-dom\\dom.js"}],"src\\react-dom\\index.js":[function(require,module,exports) {
+},{"./dom.js":"src\\react-dom\\dom.js","../react/component.js":"src\\react\\component.js"}],"src\\react\\component.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _render = require("../react-dom/render");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Component = function () {
+    function Component() {
+        var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+        _classCallCheck(this, Component);
+
+        this.isReactComponent = true;
+        this.state = {};
+        this.props = props;
+    }
+
+    _createClass(Component, [{
+        key: "setState",
+        value: function setState(stateChange) {
+            Object.assign(this.state, stateChange);
+            // 更新DOM
+            (0, _render.renderComponent)(this);
+        }
+    }]);
+
+    return Component;
+}();
+
+exports.default = Component;
+},{"../react-dom/render":"src\\react-dom\\render.js"}],"src\\react\\index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createElement = require('./create-element.js');
+
+var _createElement2 = _interopRequireDefault(_createElement);
+
+var _component = require('./component.js');
+
+var _component2 = _interopRequireDefault(_component);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    createElement: _createElement2.default,
+    Component: _component2.default
+};
+},{"./create-element.js":"src\\react\\create-element.js","./component.js":"src\\react\\component.js"}],"src\\react-dom\\index.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -237,6 +335,8 @@ exports.default = { render: _render.render };
 },{"./render":"src\\react-dom\\render.js"}],"src\\index.js":[function(require,module,exports) {
 'use strict';
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('./react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -247,17 +347,74 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Counter = function (_React$Component) {
+  _inherits(Counter, _React$Component);
+
+  function Counter(props) {
+    _classCallCheck(this, Counter);
+
+    var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+
+    _this.state = {
+      num: 1
+    };
+    return _this;
+  }
+
+  _createClass(Counter, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'count:',
+          this.state.num
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this2.onClick();
+            } },
+          'add'
+        )
+      );
+    }
+  }, {
+    key: 'onClick',
+    value: function onClick() {
+      // console.log('a')
+      this.setState({
+        num: this.state.num + 1
+      });
+    }
+  }]);
+
+  return Counter;
+}(_react2.default.Component);
+
 _reactDom2.default.render(_react2.default.createElement(
-    'div',
-    null,
-    'Hello',
-    _react2.default.createElement(
-        'span',
-        { className: 'rt',
-            onClick: 'console.log(\'zz\');',
-            style: { fontSize: 20, fontWeight: 'bold' } },
-        ' World'
-    )
+  'div',
+  null,
+  'Hello',
+  _react2.default.createElement(
+    'span',
+    { className: 'rt', onClick: 'console.log(\'zz\');',
+      style: { fontSize: 20, fontWeight: 'bold' }
+    },
+    ' World!'
+  ),
+  _react2.default.createElement(Counter, null)
 ), document.getElementById('root'));
 },{"./react":"src\\react\\index.js","./react-dom":"src\\react-dom\\index.js"}],"C:\\Users\\Administrator\\AppData\\Local\\Yarn\\Data\\global\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -288,7 +445,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '52573' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53590' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

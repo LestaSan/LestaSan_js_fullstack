@@ -7,7 +7,9 @@ class TodoList extends Component {
         // 定义数据 (定义在状态里)  this.state为组件状态
         this.state = {
             inputValue: '',
-            list: []
+            list: [
+                
+            ]
         }
     }
 
@@ -19,6 +21,24 @@ class TodoList extends Component {
         })
     }
 
+    handleBtnClick() {
+        this.setState({
+            //...this.state.list  展开原先state.list中的每一项
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: ''
+        })
+        // console.log(this.state.list)
+    }
+
+    handleItemDelete(index) {
+        // console.log(index);
+        const list = [...this.state.list];
+        list.splice(index, 1);
+        this.setState({
+            list: list
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -26,11 +46,17 @@ class TodoList extends Component {
                     <input
                         value={this.state.inputValue}
                         onChange={this.handlelInputChange.bind(this)}/>
-                    <button>提交</button>
+                    <button onClick={this.handleBtnClick.bind(this)}>提交</button>
                 </div>
                 <ul>
-                    <li>学英语</li>
-                    <li>Learning English</li>
+                    {
+                        this.state.list.map((item, index) => {
+                            return <li 
+                                        key={index} 
+                                        onClick={this.handleItemDelete.bind(this, index)}
+                                    >{item}</li>
+                        })
+                    }
                 </ul>
             </Fragment>
         );

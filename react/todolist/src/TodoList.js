@@ -8,6 +8,8 @@ class TodoList extends Component {
     // 调用父类构造函数(Component)里的props --> super
     super(props);
     // 定义数据 (定义在状态里)  this.state为组件状态
+    // 当组件的state或者props发生改变的时候，render函数就会重新执行
+    // 当父组件render函数被运行时，它的子组件的render函数都将被重新运行一次
     this.state = {
       inputValue: '',
       list: []

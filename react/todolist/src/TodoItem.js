@@ -6,7 +6,23 @@ class TodoItem extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this)
   }
+
+
+  // 一个组件要从父组件接收参数
+  // 只要父组件的render函数被重新执行了，子组件的这个生命周期函数就会被执行 
+  // 如果这个组件第一次存在与父组件中 不会执行
+  // 如果这个组件之前已经存在于父组件中  它会执行
+  componentWillReceiveProps() {
+    console.log('child componentWillReceiveProps');
+  }
+
+  // 当这个组件即将被从页面剔除时刻 执行
+  componentWillUnmount() {
+    console.log('child componentWillUnmount');
+  }
+
   render() {
+    console.log('child render')
     const { content, test } = this.props ;
     // jsx -> createElement -> 虚拟DOM(js对象) -> 
     // return <div><span>item</span></div>

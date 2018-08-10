@@ -18,7 +18,37 @@ class TodoList extends Component {
     this.handleBtnClick = this.handleBtnClick.bind(this);
     this.handleItemDelete = this.handleItemDelete.bind(this)
   }
+
+  // 生命周期函数 在组建即将被挂载到页面上的时刻自动执行
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
+  //页面挂载完之后执行
+  componentDidMount() {
+    console.log('after')
+  }
+
+  // 组件更新之前被执行
+  shouldComponentUpdate()  {
+    console.log('shouldComponentUpdate')
+    return true;
+  }
+
+  // 组件更新前执行  但是在shouldComponentUpdate之后
+  // 如果shouldComponentUpdate 返回false  则不执行  true则执行
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+
+  }
+
+  // 组件更新完之后执行
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
   render() {
+    console.log('parent render')
     return (
       <Fragment>
         <div>

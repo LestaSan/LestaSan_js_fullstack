@@ -27,10 +27,12 @@ class TodoList extends Component {
             id="insertArea"
             className="input"
             value={this.state.inputValue}
-            onChange={this.handlelInputChange} />
+            onChange={this.handlelInputChange}
+            ref={(current) => { this.input = current }}
+          />
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul>
+        <ul ref={(ul) => { this.ul = ul }}>
           {
             this.getTodoItem()
           }
@@ -42,8 +44,9 @@ class TodoList extends Component {
   getTodoItem() {
     return this.state.list.map((item, index) => {
       return (
+        // 能不用index做key值就不要用index做key值
         <TodoItem
-          key={index}
+          key={item}
           content={item}
           index={index}
           deleteItem={this.handleItemDelete}
@@ -54,7 +57,8 @@ class TodoList extends Component {
 
   handlelInputChange(e) {
     // console.log(e);
-    const value = e.target.value;
+    // const value = e.target.value;
+    const value = this.input.value
     this.setState(() => ({inputValue: value}))
     // this.setState({
     //   inputValue: value
@@ -62,10 +66,17 @@ class TodoList extends Component {
   }
 
   handleBtnClick() {
+    // setState是一个异步函数，它还可以接受一个回调函数， 当前面执行完后，执行回调函数
     this.setState((prevState) => ({
       list: [...prevState.list, prevState.inputValue],
       inputValue: ''
-    }))
+    }), () => {
+      console.log(this.ul.querySelectorAll('li').length);
+    })
+    // console.log(this.ul.querySelectorAll('div').length); // 结果总会少一个
+    // 因为setState是异步函数 所以这里console可能先一步执行了 没有等页面更新后
+    // 解决方案 setState的回调函数 
+
     // this.setState({
     //   //...this.state.list  展开原先state.list中的每一项
     //   list: [...this.state.list, this.state.inputValue],

@@ -25,8 +25,8 @@
 虚拟DOM方案：
 1. state 数据
 2. jsx 模板
-3. 数据 + 模板  结合 --> 生成真实DOM来显示
-4. 生成虚拟DOM (虚拟DOM就是一个js对象，用它来描述真实DOM)  (有一点性能损耗)
+3. 数据 + 模板 结合 生成虚拟DOM (虚拟DOM就是一个js对象，用它来描述真实DOM)  (有一点性能损耗)
+4. 用虚拟DOM的结构生成真实DOM来显示
 例子：
 真实DOM： <div id="abc"><span>hello world</span></div>
 虚拟DOM(对象)：['div', {id: 'abc'}, ['span', {}, 'hello world']]
@@ -34,4 +34,14 @@
 6. 数据 + 模板 生成新的虚拟DOM：['div', {id: 'abc'}, ['span', {}, 'bye bye']]
 7. 比较原始虚拟DOM与新的虚拟DOM的区别 找到区别是span中的内容
 8. 直接操作DOM, 改变span中的内容
+
+虚拟DOM优点：
+1. 性能提升了
+2. 它使得跨端应用得以实现(得益于虚拟DOM的存在)，React Native  
+  在移动端的原生应用里面不存在DOM概念，而虚拟DOM(JS对象)可在移动端应用识别
+  所以虚拟DOM可在网页与移动端原生应用里识别
+
+
+虚拟DOM的diff(Diffrence)算法
+  - 比较虚拟DOM与新的虚拟DOM的区别
 

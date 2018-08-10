@@ -27,7 +27,7 @@ class TodoItem extends Component {
 }
 
 // 对TodoItem这个组件做属性校验
-TodoItem.PropTypes = {
+TodoItem.propTypes = {
   test: PropTypes.string.isRequired,
   content: PropTypes.string,
   deleteItem: PropTypes.func,

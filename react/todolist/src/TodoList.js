@@ -1,5 +1,6 @@
  // Fragment占位符 可替代最外层div标签()隐藏外层标签
 import React, { Component, Fragment } from 'react';
+import axios from 'axios';
 import TodoItem from './TodoItem';
 import './style.css'
 
@@ -27,25 +28,35 @@ class TodoList extends Component {
   //页面挂载完之后执行
   componentDidMount() {
     console.log('after')
-  }
-
-  // 组件更新之前被执行
-  shouldComponentUpdate()  {
-    console.log('shouldComponentUpdate')
-    return true;
-  }
-o
-  // 组件更新前执行  但是在shouldComponentUpdate之后
-  // 如果shouldComponentUpdate 返回false  则不执行  true则执行
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
+    axios.get('/api/todolist')
+      .then((res) => {
+        console.log(res.data)
+        this.setState(() => ({
+          list: [...res.data]
+        }))
+        // console.log(this.state.list)
+      })
+      .catch(() => { alert('error') })
 
   }
 
-  // 组件更新完之后执行
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }
+//   // 组件更新之前被执行
+//   shouldComponentUpdate()  {
+//     console.log('shouldComponentUpdate')
+//     return true;
+//   }
+// o
+//   // 组件更新前执行  但是在shouldComponentUpdate之后
+//   // 如果shouldComponentUpdate 返回false  则不执行  true则执行
+//   componentWillUpdate() {
+//     console.log('componentWillUpdate');
+
+//   }
+
+//   // 组件更新完之后执行
+//   componentDidUpdate() {
+//     console.log('componentDidUpdate');
+//   }
 
   render() {
     console.log('parent render')

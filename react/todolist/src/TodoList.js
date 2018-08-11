@@ -34,7 +34,7 @@ class TodoList extends Component {
     console.log('shouldComponentUpdate')
     return true;
   }
-
+o
   // 组件更新前执行  但是在shouldComponentUpdate之后
   // 如果shouldComponentUpdate 返回false  则不执行  true则执行
   componentWillUpdate() {

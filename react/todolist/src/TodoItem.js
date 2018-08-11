@@ -21,9 +21,19 @@ class TodoItem extends Component {
     console.log('child componentWillUnmount');
   }
 
+  // 父组件每次输入时子组件都会重新渲染 没有必要  
+  // 接收两个参数 nextProps nextState 
+  // 如果父组件传来的 content改变 则需重新render  否则不渲染  
+  shouldComponentUpdate(nextProps, nextState)  {
+    // console.log('shouldComponentUpdate')
+    if (nextProps.content !== this.props.content) {
+      return true;
+    }
+    return false;
+  }
   render() {
-    console.log('child render')
-    const { content, test } = this.props ;
+    // console.log('child render')
+    const { content } = this.props ;
     // jsx -> createElement -> 虚拟DOM(js对象) -> 
     // return <div><span>item</span></div>
     // return React.createElement('div', {}, React.createElement('span', {}, 'item'))
@@ -31,7 +41,7 @@ class TodoItem extends Component {
       <li
         onClick={this.handleClick}
       >
-        {test} - {content}
+       {content}
       </li>
     );
   }
@@ -55,7 +65,7 @@ TodoItem.propTypes = {
 
 // 给TodoItem的属相设置默认值
 TodoItem.defaultProps = {
-  test: 'hello world'
+  // test: 'hello world'
 }
 
 export default TodoItem;

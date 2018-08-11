@@ -48,3 +48,9 @@
 
 生命周期函数：指在某一个时刻组件会自动执行(调用)的函数
 
+
+优化性能：
+1. 将改变函数作用域(bind(this))放在constructor里执行 
+2. setState是异步函数 可把多次数据改变结合成一次来做 
+3. 虚拟DOM概念
+4. 借助shouldComponentUpdata 来避免无谓的render

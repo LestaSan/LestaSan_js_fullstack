@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import store from './store/index';
+import * as actionCreators from './store/actionCreators';
 
 class TodoList extends Component {
   constructor(props) {
@@ -15,9 +16,10 @@ class TodoList extends Component {
   }
 
   handleBtnClick() {
-    const action = {
-      type: 'add_todo_item',
-    };
+    // const action = {
+    //   type: actionTypes.ADD_TODO_ITEM,
+    // };
+    const action = actionCreators.getAddItemAction()
     store.dispatch(action);
   }
 
@@ -34,13 +36,25 @@ class TodoList extends Component {
     // 把这句话传给store (store上面有dispatch方法， 见关系图)   dispatch(action)
     // 但是store不知道怎么做，需要去查阅手册(reducers)
     // store要把当前数据previousState和当前传话action一并传给reducers  自动的
-    const action = {
-      type: 'change_inut_value',
-      value: e.target.value
-    }
+
+    // const action = {
+    //   type: actionTypes.CHANGE_INPUT_VALUE,
+    //   value: e.target.value
+    // }
+    const action = actionCreators.getInputChangeAction(e.target.value);
     store.dispatch(action);   //  传话
     // console.log(e.target.value);
     
+  }
+
+  handleItemClick(index) {
+    // alert(index);
+    // const action = {
+    //   type: actionTypes.DELETE_TODO_ITEM,
+    //   index
+    // };
+    const action = actionCreators.getDeleteItemAction(index);
+    store.dispatch(action);
   }
 
   render() {
@@ -53,7 +67,9 @@ class TodoList extends Component {
           {
             this.state.list.map((item, index) => {
               return (
-                <li key={index}>{item}</li>
+                <li 
+                key={index}
+                onClick={this.handleItemClick.bind(this, index)}>{item}</li>
               )
             })
           }

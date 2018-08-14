@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // 当一个普通组件只含有render时  我们可以用无状态组件替换普通组件  性能更高
 // 只负责页面渲染

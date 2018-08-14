@@ -11,3 +11,12 @@ Redux中核心API
 2. store.dispatch --> 派发(传递)action
 3. store.getState --> 获取store中内容
 4. store.subscribe --> 订阅store的改变  -->  接受一个回调函数，只要store改变，回调函数执行
+
+
+Redux的中间件
+要点：是action与store之间的中间件
+ 没有中间件  action只能是一个对象
+ 有了中间件 action可以是函数
+ ---------------------------------------------------
+ action --> store.dispatch(action) --> store
+ 所以中间件就是对dispatch方法的封装(升级)

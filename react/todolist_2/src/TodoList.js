@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import store from './store/index';
 import * as actionCreators from './store/actionCreators';
 import TodoListUI from './TodoListUI';
-
+import axios from 'axios'
 class TodoList extends Component {
   constructor(props) {
     super(props);
@@ -69,6 +69,24 @@ class TodoList extends Component {
         list={this.state.list}
       />
     )
+  }
+  componentDidMount() {
+    // axios.get('/list.json')
+    //   .then((res) => {
+    //     const data = res.data;
+    //     const action = actionCreators.initListAction(data)
+    //     store.dispatch(action);
+    //     console.log(action)
+    //   })
+      // 使用thunk中间件时
+    // const action = actionCreators.getTodoList();
+    // store.dispatch(action);
+    // console.log(action)
+
+    // 使用redux-saga时
+    const action = actionCreators.getInitList();
+    // console.log(action)
+    store.dispatch(action)
   }
 }
 

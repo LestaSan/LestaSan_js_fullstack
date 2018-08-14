@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import store from './store/index';
 import * as actionCreators from './store/actionCreators';
+import TodoListUI from './TodoListUI';
 
 class TodoList extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class TodoList extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleStoreChange = this.handleStoreChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
     // 订阅store的变化  只要store一改变即执行this.handleStoreChange方法
     store.subscribe(this.handleStoreChange);  
   }
@@ -47,7 +49,7 @@ class TodoList extends Component {
     
   }
 
-  handleItemClick(index) {
+  handleItemDelete(index) {
     // alert(index);
     // const action = {
     //   type: actionTypes.DELETE_TODO_ITEM,
@@ -59,22 +61,13 @@ class TodoList extends Component {
 
   render() {
     return (
-      <div>
-        <input value={this.state.inputValue} placeholder="todo info"
-        onChange={this.handleInputChange}/>
-        <button style={{marginLeft: '10px'}} onClick={this.handleBtnClick}>提交</button>
-        <ul>
-          {
-            this.state.list.map((item, index) => {
-              return (
-                <li 
-                key={index}
-                onClick={this.handleItemClick.bind(this, index)}>{item}</li>
-              )
-            })
-          }
-        </ul>
-      </div>
+      <TodoListUI 
+        inputValue={this.state.inputValue}
+        handleInputChange={this.handleInputChange}
+        handleBtnClick={this.handleBtnClick}
+        handleItemDelete={this.handleItemDelete}
+        list={this.state.list}
+      />
     )
   }
 }

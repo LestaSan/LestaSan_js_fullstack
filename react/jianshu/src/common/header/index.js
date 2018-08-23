@@ -10,8 +10,36 @@ import {
   NavSearch,
   Addition,
   Button,
-  SearchWrapper
+  SearchWrapper,
+  SearchInfo,
+  SearchInfoTitle,
+  SearchInfoSwitch,
+  SearchInfoList,
+  SearchInfoItem
 } from './style';
+
+const getListArea = (show) => {
+  if (show) {
+    return (
+      <SearchInfo>
+        <SearchInfoTitle>
+          热门搜索
+              <SearchInfoSwitch>换一批</SearchInfoSwitch>
+        </SearchInfoTitle>
+        <SearchInfoList>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+          <SearchInfoItem>教育</SearchInfoItem>
+        </SearchInfoList>
+      </SearchInfo>
+    )
+  } else {
+    return null;
+  }
+}
 
 // 无状态组件 性能更高
 const Header = (props) => {
@@ -37,13 +65,14 @@ const Header = (props) => {
               className={props.focused ? 'focused' : ''}></NavSearch>
           </CSSTransition>
           <i className={props.focused ? 'focused iconfont' : 'iconfont'}>&#xe617;</i>
+          { getListArea(props.focused) }
         </SearchWrapper>
       </Nav>
       <Addition>
         <Button className="writting">
           <i className="iconfont">&#xe615;</i>
           写文章
-                  </Button>
+        </Button>
         <Button className="reg">注册</Button>
       </Addition>
     </HeaderWrapper>

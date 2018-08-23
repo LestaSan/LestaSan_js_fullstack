@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './commom/header/index';
+import Header from './common/header/index';
 import store from './store/index';
 import { Provider } from 'react-redux';
 

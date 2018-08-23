@@ -5,7 +5,7 @@
                 <h2 class="article-title">
                     <nuxt-link class="title-link" :to="'/detail/' + article.id">{{ article.title }}</nuxt-link>
                 </h2>
-                <p class="article-body">{{ article.content | cutString(180) }}</p>
+                <p class="article-body">{{ article.content | cutString(80) }}</p>
             </li>
         </ul>
     </div>

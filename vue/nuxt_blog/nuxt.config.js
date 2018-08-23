@@ -13,6 +13,7 @@ module.exports = {
         ]
     },
     loading: { color: '#42b983' },
+    css: ['~assets/css/main.scss', 'highlight.js/styles/github.css'],
     plugins: ['~/plugins/components.js',
         '~/plugins/filters.js'
     ]

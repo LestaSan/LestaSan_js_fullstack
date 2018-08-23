@@ -53,8 +53,13 @@ const Header = (props) => {
 const mapStateToProps = (state) => {
   return {
     // focused: state.header.focused
+
     // 用了immutable后 get方法传入focused
-    focused: state.header.get('focused')
+    // focused: state.header.get('focused')
+
+    // 用了redux-immutable后 state也变成了immutable对象
+    // focused: state.get('header').get('focused')
+    focused: state.getIn(['header', 'focused'])
   }
 }
 

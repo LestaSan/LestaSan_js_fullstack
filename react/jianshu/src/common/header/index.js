@@ -20,7 +20,7 @@ import {
 
 class Header extends Component { 
   render() {
-    const { focused, handleInputBlur, handleInputFocus} = this.props;
+    const { focused, handleInputBlur, handleInputFocus, list} = this.props;
     return (
       <HeaderWrapper>
         <Logo href="/" />
@@ -38,7 +38,7 @@ class Header extends Component {
               classNames="slide"
             >
               <NavSearch
-                onFocus={handleInputFocus}
+                onFocus={() => { handleInputFocus(list) }}
                 onBlur={handleInputBlur}
                 className={focused ? 'focused' : ''}></NavSearch>
             </CSSTransition>
@@ -121,9 +121,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputFocus() {
+    handleInputFocus(list) {
+      console.log(list)
+      if(list.size === 0) {
+        dispatch(actionCreators.getList());  // 请求数据
+      } 
       dispatch(actionCreators.searchFocus());  
-      dispatch(actionCreators.getList());  // 请求数据
+      
     },
     handleInputBlur() {
       dispatch(actionCreators.searchBlur());

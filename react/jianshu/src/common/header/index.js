@@ -20,7 +20,7 @@ import {
 
 class Header extends Component { 
   render() {
-    const { focused, handleInputBlur, handleInputFocus } = this.props;
+    const { focused, handleInputBlur, handleInputFocus} = this.props;
     return (
       <HeaderWrapper>
         <Logo href="/" />
@@ -57,19 +57,38 @@ class Header extends Component {
     );
   }
   getListArea() {
-    const { focused, list } = this.props;
-    if (focused) {
+    const { focused, list, page, totalPage, mouseIn, handleMouseIn, handleMouseLeave, handleChangePage  } = this.props;
+    // 此时list是immutable类型 它不支持list[i]
+    // immutable类型数组有toJS方法将数组转换成普通的js数组
+    const newList = list.toJS()
+    const pageList = [];
+    if(newList.length) {
+      for(let i = (page - 1) * 10; i < page * 10; i++) {
+        pageList.push(
+          <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+        )
+      }
+    }
+    if (focused || mouseIn) {
       return (
-        <SearchInfo>
+        <SearchInfo 
+          onMouseEnter={handleMouseIn}
+          onMouseLeave={handleMouseLeave}
+        >
           <SearchInfoTitle>
             热门搜索
-              <SearchInfoSwitch>换一批</SearchInfoSwitch>
+              <SearchInfoSwitch
+                onClick={() => { handleChangePage(page, totalPage) }} 
+              >换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
             {
-              list.map((item) => {
-                return (<SearchInfoItem key={item}>{item}</SearchInfoItem>)
-              })
+              // immutable类型数组支持map
+              // list.map((item) => {
+              //   return (<SearchInfoItem key={item}>{item}</SearchInfoItem>)
+              // })
+
+              pageList
             }
           </SearchInfoList>
         </SearchInfo>
@@ -90,7 +109,10 @@ const mapStateToProps = (state) => {
     // 用了redux-immutable后 state也变成了immutable对象
     // focused: state.get('header').get('focused')
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    totalPage: state.getIn(['header', 'totalPage']),
+    mouseIn: state.getIn(['header', 'mouseIn'])
   }
 }
 
@@ -102,6 +124,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleInputBlur() {
       dispatch(actionCreators.searchBlur());
+    },
+    handleMouseIn() {
+      dispatch(actionCreators.mouseEnter());
+    },
+    handleMouseLeave() {
+      dispatch(actionCreators.mouseLeave());
+    },
+    handleChangePage(page, totalPage) {
+      if(page < totalPage) {
+        dispatch(actionCreators.changePage(page + 1));
+      } else {
+        dispatch(actionCreators.changePage(1))
+      }
     }
   }
 }

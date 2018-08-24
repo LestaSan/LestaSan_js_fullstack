@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
-    focused: false
+    focused: false,
+    list: []
 });
 
 export default (state = defaultState, action) => {
@@ -19,6 +20,12 @@ export default (state = defaultState, action) => {
     }
     if(action.type === actionTypes.SEARCH_BLUR) {
         return state.set('focused', false);
+    }
+    if(action.type === actionTypes.CHANGE_LIST) {
+        // 此处原state里list也变成了immutable对象，
+        // 但是action.data派生的是普通对象
+        // 所以要在action创建时将里面的data也immutable
+        return state.set('list', action.data);
     }
     return state;
 }

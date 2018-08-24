@@ -18,10 +18,9 @@ import {
   SearchInfoItem
 } from './style';
 
-
-
-class Header extends Component {
+class Header extends Component { 
   render() {
+    const { focused, handleInputBlur, handleInputFocus } = this.props;
     return (
       <HeaderWrapper>
         <Logo href="/" />
@@ -34,16 +33,16 @@ class Header extends Component {
           </NavItem>
           <SearchWrapper>
             <CSSTransition
-              in={this.props.focused}
+              in={focused}
               timeout={200}
               classNames="slide"
             >
               <NavSearch
-                onFocus={this.props.handleInputFocus}
-                onBlur={this.props.handleInputBlur}
-                className={this.props.focused ? 'focused' : ''}></NavSearch>
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
+                className={focused ? 'focused' : ''}></NavSearch>
             </CSSTransition>
-            <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe617;</i>
+            <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe617;</i>
             { this.getListArea() }
           </SearchWrapper>
         </Nav>
@@ -58,7 +57,8 @@ class Header extends Component {
     );
   }
   getListArea() {
-    if (this.props.focused) {
+    const { focused, list } = this.props;
+    if (focused) {
       return (
         <SearchInfo>
           <SearchInfoTitle>
@@ -67,7 +67,7 @@ class Header extends Component {
           </SearchInfoTitle>
           <SearchInfoList>
             {
-              this.props.list.map((item) => {
+              list.map((item) => {
                 return (<SearchInfoItem key={item}>{item}</SearchInfoItem>)
               })
             }

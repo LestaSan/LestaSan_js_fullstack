@@ -34,4 +34,9 @@ export const getMoreList = (page) => {
       dispatch(action);
     });
   }
-}
+};
+
+export const toggleTopShow = (show) => ({
+  type: actionTypes.TOGGLE_TOP_SHOW,
+  show
+})

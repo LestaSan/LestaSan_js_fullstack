@@ -12,7 +12,7 @@ class Recommend extends Component {
         {
           this.props.list.map((item) => {
             return (
-              <RecommendItem key={item.id} imgUrl={item.get('imgUrl')}/>
+              <RecommendItem key={item.get('id')} imgUrl={item.get('imgUrl')}/>
             )
           })
         }

@@ -16,7 +16,7 @@ class App extends Component {
             {/* <Route path="/" exact render={() => <div>home</div>}></Route>
               <Route path="/detail" exact render={() => <div>detail</div>}></Route> */}
             <Route path="/" exact component={Home} />
-            <Route path="/detail" exact component={Detail} />
+            <Route path="/detail/:id" exact component={Detail} />
           </div>
         </BrowserRouter>
       </Provider>

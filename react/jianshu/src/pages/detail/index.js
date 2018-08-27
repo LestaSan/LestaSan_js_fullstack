@@ -9,6 +9,7 @@ import {
 
 class Detail extends Component {
   render() {
+    // console.log(this.props.match.params.id)
     return (
       <DetailWrapper>
         <Header>{this.props.title}</Header>
@@ -18,7 +19,7 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    this.props.getDetail();
+    this.props.getDetail(this.props.match.params.id);
   }
 }
 
@@ -28,8 +29,8 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  getDetail() {
-    dispatch(actionCreators.getDetail());
+  getDetail(id) {
+    dispatch(actionCreators.getDetail(id));
   }
 })
 

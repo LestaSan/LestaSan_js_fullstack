@@ -5,6 +5,7 @@ import store from "./store/index";
 import { Provider } from "react-redux";
 import Home from "./pages/home";
 import Detail from "./pages/detail";
+import Login from './pages/login';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <Route path="/detail" exact render={() => <div>detail</div>}></Route> */}
             <Route path="/" exact component={Home} />
             <Route path="/detail/:id" exact component={Detail} />
+            <Route path="/login" exact component={Login} />
           </div>
         </BrowserRouter>
       </Provider>

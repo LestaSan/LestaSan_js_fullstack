@@ -23,49 +23,47 @@ import {
 class Header extends PureComponent {
   render() {
     const { focused, handleInputBlur, handleInputFocus, list, login, logout } = this.props;
-    return (
-      <HeaderWrapper>
+    return <HeaderWrapper>
         <Link to="/">
           <Logo />
         </Link>
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载App</NavItem>
-          {
-            login ? 
-            <NavItem className="right" onClick={logout}>退出</NavItem> :
-            <Link to="/login">
+          {login ? <NavItem className="right" onClick={logout}>
+              退出
+            </NavItem> : <Link to="/login">
               <NavItem className="right">登录</NavItem>
-            </Link>
-          }
+            </Link>}
           <NavItem className="right">
             <i className="iconfont">&#xe636;</i>
           </NavItem>
           <SearchWrapper>
             <CSSTransition in={focused} timeout={200} classNames="slide">
-              <NavSearch
-                onFocus={() => {
+              <NavSearch onFocus={() => {
                   handleInputFocus(list);
-                }}
-                onBlur={handleInputBlur}
-                className={focused ? "focused" : ""}
-              />
+                }} onBlur={handleInputBlur} className={focused ? "focused" : ""} />
             </CSSTransition>
-            <i className={focused ? "focused iconfont zoom" : "iconfont zoom"}>
+            <i
+              className={
+                focused ? "focused iconfont zoom" : "iconfont zoom"
+              }
+            >
               &#xe617;
             </i>
             {this.getListArea()}
           </SearchWrapper>
         </Nav>
         <Addition>
-          <Button className="writting">
-            <i className="iconfont">&#xe615;</i>
-            写文章
-          </Button>
+          <Link to="/write">
+            <Button className="writting">
+              <i className="iconfont">&#xe615;</i>
+              写文章
+            </Button>
+          </Link>
           <Button className="reg">注册</Button>
         </Addition>
-      </HeaderWrapper>
-    );
+      </HeaderWrapper>;
   }
   getListArea() {
     const {

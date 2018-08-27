@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 const defaultState  = fromJS({
   title: '',
   content: ''
-})
+});
 
 export default (state = defaultState, action) => {
   switch(action.type) {

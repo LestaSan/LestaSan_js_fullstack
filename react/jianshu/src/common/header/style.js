@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import logoPic from "../../statics/logo.png";
 
-// 创建了一个HeaderWrapper组件  这个组件本质是div标签 带有样式
 export const HeaderWrapper = styled.div`
-    z-index: 1
-    position: relative;
-    height: 56px;
-    border-bottom: 1px solid #f0f0f0;
+  z-index: 3;
+  position: relative;
+  height: 56px;
+  border-bottom: 1px solid #f0f0f0;
 `;
 
 export const Logo = styled.div`

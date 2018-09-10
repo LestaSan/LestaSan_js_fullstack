@@ -18,15 +18,37 @@
     <button v-on:click="handleBtnClick">提交</button>
     <ul>
       <!-- v-for循环数据 循环data中list里的数据项 -->
-      <li v-for="item in list">{{item}}</li>
+      <!-- <li v-for="item in list">{{item}}</li> -->
+      <!-- v-bind: 向子组件绑定值 -->
+      <!-- 此处循环了list每一项item，同时将item以v-bind传给content -->
+      <!-- 子组件接受内容要用props -->
+      <todo-item 
+        v-bind:content="item" 
+        v-for="item in list"
+      >
+      </todo-item>
     </ul>
   </div>
   <script>
+    // 创建一个全局组件TodoItem 
+    // Vue.component("TodoItem", {
+    //   props: ['content'],
+    //   template: "<li>{{content}}</li>"
+    // })
+
+    // 局部组件 要在实例中注册
+    var TodoItem = {
+      props: ['content'],
+      template: "<li>{{content}}</li>"
+    }
     var app = new Vue({
       el: '#app',
       data: {
         list: [],
         inputValue: ''
+      },
+      components: {
+        TodoItem: TodoItem
       },
       methods: {
         handleBtnClick: function() {

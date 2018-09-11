@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='./vue.js'></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 
+    模板语法
+    与插值表达式一样-->
+    <div v-text="name + ' lee'"></div>
+    <!-- 让div标签里innerHtml内容与name绑定 
+    会解析内容
+    比如说解析name里标签-->
+    <div v-html="name + ' Lee'"></div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        name: "<h1>Dell</h1>"
+      }
+    })
+  </script>
+</body>
+</html>

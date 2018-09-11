@@ -51,8 +51,36 @@
         }
       }
     }
+    // 生命周期函数
+    // 在某一个时间点会自动执行的函数
     var app = new Vue({
       el: '#app',
+      beforeCreate: function() {
+        console.log('beforeCreate');
+      },
+      created: function() {
+        console.log('create');
+      },
+      beforeMount: function() {
+        console.log(this.$el)
+        console.log('beforeMount');
+      },
+      mounted: function() {
+        console.log(this.$el)
+        console.log('mounted');
+      },
+      beforeDestory: function() {
+        CountQueuingStrategy.length('beforeDestory');
+      },
+      destoryed: function() {
+        console.log('destoryed')
+      },
+      beforeUpdate: function() {
+        console.log('beforeUpdate');
+      },
+      updated: function() {
+        console.log('updated');
+      },
       data: {
         list: [],
         inputValue: ''

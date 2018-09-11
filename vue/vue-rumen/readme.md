@@ -33,3 +33,13 @@ beforeDestory
 destoryed
 beforeUpdate
 updated
+
+计算属性与侦听器：
+计算属性computed
+  有缓存
+  当依赖的数据没有发生变化的时候
+  是不会再次计算的
+  会用原来的结果
+侦听器wacth
+  与computed一致
+  但是watch更复杂

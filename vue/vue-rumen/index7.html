@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件使用的细节点</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- <table>
+      <tbody>
+        <tr is="row"></tr>
+        <tr is="row"></tr>
+        <tr is="row"></tr>
+      </tbody>
+    </table> -->
+
+    <!-- 操作单个DOM节点 -->
+    <!-- <div 
+      ref="hello" 
+      @click="handleClick"
+    >
+      hello world
+    </div> -->
+
+    <!-- 如果是组件呢？引用 -->
+    <counter ref="one" @change="handleChange"></counter>
+    <counter ref="two" @change="handleChange"></counter>
+    <div>{{total}}</div>
+  </div>
+  <script>
+    // 在根组件(vm)中定义data为对象可以
+    // 但是在子组件中是不可以用对象作为data的 
+    // 子组件data要求为函数 同时返回一个对象
+    // 原因：一个根组件只调用一次
+    // 子组件可能调用多次
+    // 每一个子组件的数据不能和别的子组件产生冲突
+    // 通过一个函数来返回数据可以让每一个子组件都有独立数据
+    // Vue.component('row', {
+    //   data: function() {
+    //     return {
+    //       content: 'this is a row'
+    //     }
+    //   },
+    //   template: '<tr><td>{{content}}</td></tr>'
+    // })
+  
+  Vue.component('counter', {
+    template: '<div @click="handleClick">{{number}}</div>',
+    data: function() {
+      return {
+        number: 0
+      }
+    },
+    methods: {
+      handleClick: function() {
+        this.number ++,
+        // 子组件向父组件通信
+        this.$emit('change')
+      }
+    }
+  })
+
+  var vm = new Vue({
+    el: "#root",
+    data: {
+      total: 0
+    },
+    methods: {
+      handleChange: function() {
+        this.total = this.$refs.one.number + this.$refs.two.number;
+        // console.log(this.$refs.one.number);
+        // console.log(this.$refs.two.number);
+      }
+    }
+    // methods: {
+    //   handleClick: function() {
+    //     // 所有ref引用里面找到hello这个引用
+    //     alert(this.$refs.hello.innerHTML)
+    //   }
+    // }
+  })
+  </script>
+</body>
+</html>

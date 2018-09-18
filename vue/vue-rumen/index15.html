@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue中css动画原理 transition及animate.css库</title>
+  <script src="./vue.js"></script>
+  <style>
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    transform-origin: left center;
+    transition: opacity 1s;
+    animation: bounce-in 1s;
+  }
+  .fade-leave-to {
+    opacity: 0;
+  }
+  .fade-leave-active {
+    transform-origin: left center;
+    transition: opacity 1s;
+    animation: bounce-in 1s reverse;
+  }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <!-- 不写name默认就为v -->
+    <transition name="fade">
+      <div v-if="show">hello world</div>
+    </transition>
+    <button @click="handleClick">show</button>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#root',
+    data: {
+      show: true
+    },
+    methods: {
+      handleClick: function() {
+        this.show = !this.show
+      }
+    }
+  })
+  </script>
+</body>
+</html>

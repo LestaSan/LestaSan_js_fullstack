@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件参数校验与非props特性</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- 父组件传参，子组件可对其进行约束 即校验 -->
+    <child content="hello world"></child>
+  </div>
+  <script>
+    Vue.component('child', {
+      // props校验
+      // props: {
+      //   // 规定是字符串或者数字类型
+      //   // content: [Number, String]
+      //   content: {
+      //     type: String,
+      //     // required表示是否是必传项
+      //     // required: true,
+      //     // 假设required为false 
+      //     // 则为非必传项
+      //     // 此时可设置默认值default
+      //     // default: 'default value'
+
+      //     // 校验器validator
+      //     // value即为父组件传来的值
+      //     validator: function(value) {
+      //       return (value.length > 5)
+      //     }
+      //   }
+      // },
+
+      // 非props 
+      // 父组件传参 子组件未接收
+      template: '<div>hello</div>'
+    })
+    var vm = new Vue({
+      el: '#root'
+    })
+  </script>
+</body>
+</html>
